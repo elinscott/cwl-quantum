@@ -1,0 +1,20 @@
+atoms:
+  cell:
+    a: 3.85
+    b: 3.85
+    c: 3.85
+    alpha: 60.0
+    beta: 60.0
+    gamma: 60.0
+  positions:
+    - { symbol: Si, position: [0.00, 0.00, 0.00] }
+    - { symbol: Si, position: [0.25, 0.25, 0.25]}
+parameters:
+  control:
+    calculation: scf
+  system:
+    ecutwfc: 40.0
+pseudopotentials:
+  directory: { class: Directory, path: "tests/pseudos" }
+  filenames:
+    - { symbol: Si, filename: "Si.upf" }

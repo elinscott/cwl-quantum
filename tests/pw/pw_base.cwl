@@ -4,12 +4,10 @@ class: Operation
 inputs:
    atoms:
       type: { $import: "../../types/atoms.yml" }
+   parameters:
+      type: { $import: "../../types/qe_parameters.yml" }
    pseudopotentials:
       type: { $import: "../../types/pseudopotentials.yml" }
-   ecutwfc:
-      type: int
-   error_code:
-      type: int
 
 outputs:
    error_code:

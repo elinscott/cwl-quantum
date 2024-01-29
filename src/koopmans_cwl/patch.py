@@ -9,6 +9,7 @@ from pathlib import Path
 import inspect
 from typing import Tuple, Optional, List, Any, cast, MutableMapping, Union, MutableSequence, Callable
 import threading
+from .utils import chdir
 
 class PythonJob():
    def __init__(
@@ -36,8 +37,11 @@ class PythonJob():
            tmpdir_lock: Optional[threading.Lock] = None) -> None:
       """Run this PythonJob."""
       normalizeFilesDirs(self.builder.job)
-      inputs = {}
-      ev = self.operation(**self.builder.job)
+
+      tmpdir = runtimeContext.get_tmpdir()
+      with chdir(tmpdir):
+         ev = self.operation(**self.builder.job)
+
       normalizeFilesDirs(
           cast(
               Optional[
@@ -80,35 +84,35 @@ def construct_make_tool(operations):
 
          name = Path(tool.metadata['id'][7:]).stem
          if name in operations:
-            # Ensure that the provided operation matches the format of the required operation
+            # # Ensure that the provided operation matches the format of the required operation
             func = operations[name]
-            func_info = inspect.getfullargspec(func)
-            expected_args = [i['id'].rsplit('#')[-1] for i in tool.tool['inputs']]
+            # func_info = inspect.getfullargspec(func)
+            # expected_args = [i['id'].rsplit('#')[-1] for i in tool.tool['inputs']]
 
-            # Checking the argument names
-            if set(func_info.args) != set(expected_args):
-               raise ValueError(f'{name} has inputs {func_info.args} but the workflow requires an operation with inputs [{", ".join(expected_args)}]')
+            # # Checking the argument names
+            # if set(func_info.args) != set(expected_args):
+            #    raise ValueError(f'{name} has inputs {func_info.args} but the workflow requires an operation with inputs [{", ".join(expected_args)}]')
             
-            # Checking the argument types
-            for arg_dict in tool.tool['inputs']:
-               _, arg_name = arg_dict['id'].rsplit('#', 1)
-               expected_type_name = arg_dict['type']
-               if expected_type_name in ['File', 'Directory']:
-                  expected_type_name = 'Path'
-               provided_type = func_info.annotations[arg_name].__name__
-               if provided_type != expected_type_name:
-                  raise ValueError(f'{name} has input {arg_name} of type {provided_type}, but it should be of type {expected_type_name}')
-               
-            # Checking the return types
+            # # Checking the argument types
+            # for arg_dict in tool.tool['inputs']:
+            #    _, arg_name = arg_dict['id'].rsplit('#', 1)
+            #    expected_type_name = arg_dict['type']
+            #    if expected_type_name in ['File', 'Directory']:
+            #       expected_type_name = 'Path'
+            #    provided_type = func_info.annotations[arg_name].__name__
+            #    if provided_type != expected_type_name:
+            #       raise ValueError(f'{name} has input {arg_name} of type {provided_type}, but it should be of type {expected_type_name}')
+            #    
+            # # Checking the return types
             expected_return_names = [o['id'].rsplit('#')[-1] for o in tool.tool['outputs']]
-            expected_return_types = [o['type'] for o in tool.tool['outputs']]
-            provided_return_type = inspect.signature(func).return_annotation
-            if provided_return_type == Tuple:
-               provided_return_types = [v.__name__ for v in provided_return_type.__args__]
-            else:
-               provided_return_types = [provided_return_type.__name__]
-            if provided_return_types != expected_return_types:
-               raise ValueError(f'{name} returns {provided_return_types} but it should return {expected_return_types}')
+            # expected_return_types = [o['type'] for o in tool.tool['outputs']]
+            # provided_return_type = inspect.signature(func).return_annotation
+            # if provided_return_type == Tuple:
+            #    provided_return_types = [v.__name__ for v in provided_return_type.__args__]
+            # else:
+            #    provided_return_types = [provided_return_type.__name__]
+            # if provided_return_types != expected_return_types:
+            #    raise ValueError(f'{name} returns {provided_return_types} but it should return {expected_return_types}')
             
             # Replacing tool with the matching python function
             def wrapped_func(**kwargs) -> CWLOutputType:

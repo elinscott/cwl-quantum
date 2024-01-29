@@ -1,0 +1,4 @@
+pseudos:
+  directory: { class: Directory, path: "/path/to/pseudos" }
+  filenames:
+    - { symbol: Si, filename: Si.upf }

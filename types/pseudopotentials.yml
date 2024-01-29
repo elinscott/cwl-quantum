@@ -1,0 +1,15 @@
+# pseudopotential.yml
+
+type: record
+doc: |
+  A custom type for representing a set of pseudopotentials
+
+fields:
+  - name: directory
+    type: Directory
+    doc: The directory where all the pseudopotentials can be found
+  - name: filenames
+    type:
+      type: array
+      items: { $import: "pseudopotential.yml" }
+    doc: The array of pseudopotential filenames

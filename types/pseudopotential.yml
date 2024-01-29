@@ -8,6 +8,6 @@ fields:
   symbol:
     type: string
     doc: The element that the pseudopotential represents
-  file:
-    type: File
-    doc: The pseudopotential file
+  filename:
+    type: string
+    doc: The filename of the pseudopotential (without the path; this is stored in the parent pseudopotentials record)

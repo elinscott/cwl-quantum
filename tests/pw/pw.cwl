@@ -8,13 +8,11 @@ inputs:
    atoms:
       type: { $import: "../../types/atoms.yml" }
    pseudopotentials:
-      type: { $import: "../../types/pseudopotentials.yml" }
-   ecutwfc:
-      type: int
-      default: 30
-   error_code_input:
-      type: int
-      default: 1
+      type:
+         type: array
+         items: { $import: "../../types/pseudopotentials.yml" }
+   qe:
+      type: { $import: "../../types/qe_parameters.yml" }
 
 requirements:
    InlineJavascriptRequirement: {}

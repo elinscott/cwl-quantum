@@ -4,14 +4,12 @@ class: Workflow
 inputs:
    atoms:
       type: { $import: "../../types/atoms.yml" }
+   parameters:
+      type: { $import: "../../types/qe_parameters.yml" }
    pseudopotentials:
-      type: { $import: "../../types/pseudopotentials.yml" }
-   ecutwfc:
-      type: int
-      default: 30
-   error_code_input:
-      type: int
-      default: 0
+      type:
+         type: array
+         items: { $import: "../../types/pseudopotentials.yml" }
 
 requirements:
    SubworkflowFeatureRequirement: {}
@@ -21,17 +19,17 @@ outputs:
    error_code:
       type: int
       outputSource: pw/error_code
-   ecutwfc_out:
-      type: int
-      outputSource: update_parameters_based_on_error/ecutwfc_out
+   parameters_out:
+      type: { $import: "../../types/qe_parameters.yml" }
+      outputSource: update_parameters_based_on_error/parameters_out
 
 steps:
    pw:
       run: pw_base.cwl
       in: 
          atoms: atoms
+         parameters: parameters
          pseudopotentials: pseudopotentials
-         ecutwfc: ecutwfc
          error_code: error_code_input
       out: [error_code]
    update_parameters_based_on_error:
