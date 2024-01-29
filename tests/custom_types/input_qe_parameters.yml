@@ -1,0 +1,5 @@
+qe:
+  system:
+    ecutwfc: 40.0
+  control:
+    calculation: "scf"
