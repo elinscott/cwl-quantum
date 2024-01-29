@@ -2,9 +2,8 @@
 
 """Test implementation of creating koopmans Workflows from cwl files."""
 
-from .workflow import Workflow
-from cwltool.utils import files
 from cwltool.process import use_custom_schema
+from cwltool.utils import files
 
 ext10 = files("cwltool").joinpath("extensions.yml").read_text("utf-8")
 ext11 = files("cwltool").joinpath("extensions-v1.1.yml").read_text("utf-8")

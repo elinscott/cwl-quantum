@@ -1,10 +1,14 @@
-from cwltool.factory import Factory
-from koopmans_cwl.utils import populate_listings
-import yaml
-import pytest
 from pathlib import Path
 
+import pytest
+import yaml
+from cwltool.factory import Factory
+
+from koopmans_cwl.utils import populate_listings
+
 custom_types = [t for t in Path("types").glob("*.yml")]
+
+
 @pytest.mark.parametrize("custom_type", custom_types, ids=[t.stem for t in custom_types])
 def test_custom_class(custom_type):
     # Find the corresponding test input
