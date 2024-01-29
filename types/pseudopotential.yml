@@ -1,0 +1,13 @@
+# pseudopotential.yml
+
+type: record
+doc: |
+  A custom type for representing a pseudopotential file
+
+fields:
+  symbol:
+    type: string
+    doc: The element that the pseudopotential represents
+  file:
+    type: File
+    doc: The pseudopotential file

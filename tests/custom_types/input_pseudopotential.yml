@@ -1,0 +1,3 @@
+pseudo:
+  symbol: Si
+  file: { class: File, path: "/path/to/pseudo.upf" }

@@ -1,0 +1,16 @@
+# atomicPosition.yml
+
+type: record
+doc: |
+  A custom type for representing an atomic position
+
+fields:
+  - name: symbol
+    type: string
+    doc: The atomic symbol of the atom
+
+  - name: position
+    type:
+      type: array
+      items: double
+    doc: The fractional coordinates of the atom in the cell

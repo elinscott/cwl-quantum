@@ -1,0 +1,16 @@
+# atoms.yml
+
+type: record
+doc: |
+  A custom type for representing a system of atoms in a cell
+
+fields:
+  - name: cell
+    type: { $import: "cell.yml" }
+    doc: The unit cell of the system
+
+  - name: positions
+    type:
+      type: array
+      items: { $import: "atomicPosition.yml" }
+    doc: The atomic positions of each atom in the system

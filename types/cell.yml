@@ -1,0 +1,30 @@
+# cell.yml
+
+type: record
+doc: |
+  A custom type for representing a unit cell
+
+fields:
+  - name: a
+    type: float
+    doc: The length of the first cell vector (a) in Angstroms.
+
+  - name: b
+    type: float
+    doc: The length of the second cell vector (b) in Angstroms.
+
+  - name: c
+    type: float
+    doc: The length of the third cell vector (c) in Angstroms.
+
+  - name: alpha
+    type: float
+    doc: The angle between b and c in degrees.
+
+  - name: beta
+    type: float
+    doc: The angle between a and c in degrees.
+
+  - name: gamma
+    type: float
+    doc: The angle between a and b in degrees.
