@@ -1,3 +1,6 @@
+# This workflow implements the error recovery logic for a pw.x Quantum ESPRESSO calculation
+# It wraps pw_base.cwl, which must be separately implemented.
+
 cwlVersion: v1.2
 class: Workflow
 
@@ -8,7 +11,7 @@ inputs:
    atoms:
       type: { $import: "../../types/atoms.yml" }
    parameters:
-      type: { $import: "../../types/qe_parameters.yml" }
+      type: { $import: "../../types/qe/pw/parameters.yml" }
    pseudopotentials:
       type: { $import: "../../types/pseudopotentials.yml" }
    first_attempt: # do not provide this input explicitly; it enables the error recovery loop to function as desired
@@ -27,7 +30,7 @@ outputs:
       type: int
       outputSource: pw_attempts/error_code
    updated_parameters:
-      type: { $import: "../../types/qe_parameters.yml" }
+      type: { $import: "../../types/qe/pw/parameters.yml" }
       outputSource: pw_attempts/updated_parameters
 
 steps:
@@ -57,7 +60,7 @@ steps:
             atoms:
                type: { $import: "../../types/atoms.yml" }
             parameters:
-               type: { $import: "../../types/qe_parameters.yml" }
+               type: { $import: "../../types/qe/pw/parameters.yml" }
             pseudopotentials:
                type: { $import: "../../types/pseudopotentials.yml" }
             first_attempt: boolean
@@ -67,7 +70,7 @@ steps:
                type: int
                outputSource: pw_attempt/error_code
             updated_parameters:
-               type: { $import: "../../types/qe_parameters.yml" }
+               type: { $import: "../../types/qe/pw/parameters.yml" }
                outputSource: update_parameters_as_required/parameters_out
             first_attempt:
                type: boolean
@@ -81,10 +84,10 @@ steps:
                   inputs:
                      error_code: int
                      parameters_in:
-                        type: { $import: "../../types/qe_parameters.yml" }
+                        type: { $import: "../../types/qe/pw/parameters.yml" }
                   outputs:
                      parameters_out:
-                        type: { $import: "../../types/qe_parameters.yml" }
+                        type: { $import: "../../types/qe/pw/parameters.yml" }
                      first_attempt: boolean
                   expression: |
                      ${

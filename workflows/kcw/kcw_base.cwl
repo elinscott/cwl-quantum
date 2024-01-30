@@ -5,7 +5,7 @@ inputs:
    atoms:
       type: { $import: "../../types/atoms.yml" }
    parameters:
-      type: { $import: "../../types/qe_parameters.yml" }
+      type: { $import: "../../types/kcw_parameters.yml" }
    pseudopotentials:
       type: { $import: "../../types/pseudopotentials.yml" }
 

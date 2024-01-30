@@ -1,0 +1,12 @@
+# parameters.yml
+
+type: record
+
+doc: |
+  A custom type for representing QE input parameters
+
+fields:
+  - name: system
+    type: { $import: "parameters/system.yml" }
+  - name: control
+    type: { $import: "parameters/control.yml" }

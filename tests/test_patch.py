@@ -8,14 +8,8 @@ from koopmans_cwl.utils import populate_listings
 
 
 def test_pw_base():
-    with open(Path(__file__).parent / "pw" / "si.yml", "r") as f:
-        inputs = yaml.safe_load(f)
-    populate_listings(inputs)
-
     # Create the workflow object
-    wf = create_workflow(
-        str(Path(__file__).parent / "pw" / "pw_base.cwl"), operations=ase_operations
-    )
+    wf = create_workflow("workflows/pw/pw_base.cwl", operations=ase_operations)
 
     # Update the runtime context
     wf.factory.runtime_context.rm_tmpdir = False
@@ -23,15 +17,16 @@ def test_pw_base():
         str(Path(__file__).parent / wf.factory.runtime_context.tmpdir_prefix.lstrip("/")) + "/"
     )
 
+    # Load the workflow inputs from file
+    with open("workflows/pw/si.yml", "r") as f:
+        inputs = yaml.safe_load(f)
+    populate_listings(inputs)
+
     # Run the workflow
     err = wf(**inputs)
     assert err == 0
 
 def test_pw_error_recovery():
-    with open(Path(__file__).parent / "pw" / "si.yml", "r") as f:
-        inputs = yaml.safe_load(f)
-    populate_listings(inputs)
-
     # Make a dumb wrapper of ase_operations['pw_base'] that will return an error if ecutwfc is too low
     def pw_base(**kwargs):
         ecutwfc = kwargs['parameters']['system']['ecutwfc']
@@ -41,9 +36,7 @@ def test_pw_error_recovery():
             return ase_operations['pw_base'](**kwargs)
 
     # Create the workflow object
-    wf = create_workflow(
-        str(Path(__file__).parent / "pw" / "pw.cwl"), operations={'pw_base': pw_base}
-    )
+    wf = create_workflow("workflows/pw/pw.cwl", operations={'pw_base': pw_base})
 
     # Update the runtime context
     wf.factory.runtime_context.rm_tmpdir = False
@@ -51,7 +44,14 @@ def test_pw_error_recovery():
         str(Path(__file__).parent / wf.factory.runtime_context.tmpdir_prefix.lstrip("/")) + "/"
     )
 
+    # Load the workflow inputs from file
+    with open("workflows/pw/si.yml", "r") as f:
+        inputs = yaml.safe_load(f)
+    populate_listings(inputs)
+
     # Run the workflow
     outputs = wf(**inputs)
-    raise ValueError()
+
+    # Check the outputs
     assert outputs['error_code'] == 0
+    assert outputs['parameters']['system']['ecutwfc'] > 55.0

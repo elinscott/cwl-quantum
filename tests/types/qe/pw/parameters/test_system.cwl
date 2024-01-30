@@ -5,7 +5,7 @@ class: Workflow
 
 inputs:
    system:
-      type: { $import: "../../types/qe_parameters_system.yml" }
+      type: { $import: "../../../../../types/qe/pw/parameters/system.yml" }
 
 outputs: {}
 
