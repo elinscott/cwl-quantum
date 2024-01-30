@@ -3,6 +3,7 @@ from pathlib import Path
 from typing import (
     Any,
     Callable,
+    Dict,
     List,
     MutableMapping,
     MutableSequence,

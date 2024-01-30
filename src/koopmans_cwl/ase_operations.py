@@ -4,7 +4,7 @@ from ase import Atoms
 from ase.calculators.espresso import Espresso
 from ase.calculators.calculator import CalculationFailed
 from ase.cell import Cell
-
+from cwltool.loghandler import _logger as logger
 
 def pw_base(
     atoms: Atoms, parameters: Dict[str, Dict[str, Any]], pseudopotentials: Dict[str, Any]
@@ -32,6 +32,11 @@ def pw_base(
         ase_atoms.calc.calculate()
     except CalculationFailed:
         err = 1
+
+    if err:
+        logger.error("Calculation failed")
+    else:
+         logger.info("Calculation succeeded")
 
     return err
 
