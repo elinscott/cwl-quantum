@@ -23,6 +23,5 @@ kcw_parameters:
     prefix: "test"
   wannier: {}
 pseudopotentials:
-  directory: { class: Directory, path: "../pseudos" }
   filenames:
     - { symbol: O, filename: "O_ONCV_PBE-1.2.upf" }

@@ -3,7 +3,7 @@ from typing import Any, Dict, List
 
 from ase import Atoms
 from ase.calculators.calculator import CalculationFailed
-from ase.calculators.espresso import Espresso
+from ase.calculators.espresso import Espresso, Wann2KC
 from ase.cell import Cell
 from cwltool.loghandler import _logger as logger
 
@@ -59,9 +59,20 @@ def pw_base(
 
 
 def kcw_wann2kcw_base(parameters: Dict[str, Dict[str, Any]], wavefunctions: List[str]):
-    import ipdb
+    # Construct a dummy atoms object
+    atoms = Atoms()
 
+    # Construct the calculator
+    parameters = {k: v for subdct in parameters.values() for k, v in subdct.items()}
+    atoms.calc = Wann2KC(atoms=atoms, **parameters)
+
+    import ipdb
     ipdb.set_trace()
+
+    # Run the calculator
+    atoms.calc.calculate()
+
+    # Extract the results
     return {"error_code": 0}
 
 
