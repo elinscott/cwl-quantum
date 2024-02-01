@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-"""Version information for :mod:`koopmans_cwl`.
+"""Version information for :mod:`cwl_quantum`.
 
-Run with ``python -m koopmans_cwl.version``
+Run with ``python -m cwl_quantum.version``
 """
 
 import os
@@ -18,7 +18,7 @@ VERSION = "0.0.1-dev"
 
 
 def get_git_hash() -> str:
-    """Get the :mod:`koopmans_cwl` git hash."""
+    """Get the :mod:`cwl_quantum` git hash."""
     with open(os.devnull, "w") as devnull:
         try:
             ret = check_output(  # noqa: S603,S607
@@ -33,7 +33,7 @@ def get_git_hash() -> str:
 
 
 def get_version(with_git_hash: bool = False):
-    """Get the :mod:`koopmans_cwl` version string, including a git hash."""
+    """Get the :mod:`cwl_quantum` version string, including a git hash."""
     return f"{VERSION}-{get_git_hash()}" if with_git_hash else VERSION
 
 

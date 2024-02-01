@@ -4,7 +4,7 @@
 
 import unittest
 
-from koopmans_cwl.version import get_version
+from cwl_quantum.version import get_version
 
 
 class TestVersion(unittest.TestCase):

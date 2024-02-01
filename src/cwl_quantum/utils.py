@@ -1,4 +1,4 @@
-"""Utilities for the koopmans_cwl package."""
+"""Utilities for the cwl_quantum package."""
 
 import contextlib
 import os

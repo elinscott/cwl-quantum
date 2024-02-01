@@ -8,10 +8,10 @@ This project uses the [GitHub Flow](https://guides.github.com/introduction/flow)
 model for code contributions. Follow these steps:
 
 1. [Create a fork](https://help.github.com/articles/fork-a-repo) of the upstream
-   repository at [`elinscott/koopmans-cwl`](https://github.com/elinscott/koopmans-cwl)
+   repository at [`elinscott/cwl-quantum`](https://github.com/elinscott/cwl-quantum)
    on your GitHub account (or in one of your organizations)
 2. [Clone your fork](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository)
-   with `git clone https://github.com/<your namespace here>/koopmans-cwl.git`
+   with `git clone https://github.com/<your namespace here>/cwl-quantum.git`
 3. Make and commit changes to your fork with `git commit`
 4. Push changes to your fork with `git push`
 5. Repeat steps 3 and 4 as needed
@@ -89,7 +89,7 @@ resolve conflicts against the main branch. After cloning, you should add the
 upstream repository with
 
 ```shell
-$ git remote add elinscott https://github.com/elinscott/koopmans-cwl.git
+$ git remote add elinscott https://github.com/elinscott/cwl-quantum.git
 ```
 
 Then, you can merge upstream code into your branch. You can also use the GitHub

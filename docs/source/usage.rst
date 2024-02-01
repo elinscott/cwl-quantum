@@ -1,4 +1,4 @@
 Usage
 =====
-.. automodule:: koopmans_cwl.api
+.. automodule:: cwl_quantum.api
     :members:

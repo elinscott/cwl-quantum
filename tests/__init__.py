@@ -1,3 +1,3 @@
 # -*- coding: utf-8 -*-
 
-"""Tests for :mod:`koopmans_cwl`."""
+"""Tests for :mod:`cwl_quantum`."""

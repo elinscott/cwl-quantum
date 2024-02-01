@@ -4,7 +4,7 @@ import pytest
 import yaml
 from cwltool.factory import Factory
 
-from koopmans_cwl.utils import populate_listings
+from cwl_quantum.utils import populate_listings
 
 custom_types = [t for t in Path("types").rglob("*.yml")]
 

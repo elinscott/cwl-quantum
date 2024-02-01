@@ -2,9 +2,9 @@ from pathlib import Path
 
 import yaml
 
-from koopmans_cwl.ase_operations import ase_operations
-from koopmans_cwl.patch import create_workflow
-from koopmans_cwl.utils import populate_listings
+from cwl_quantum.ase_operations import ase_operations
+from cwl_quantum.patch import create_workflow
+from cwl_quantum.utils import populate_listings
 
 
 def main():

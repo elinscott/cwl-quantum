@@ -1,4 +1,4 @@
-koopmans-cwl |release| Documentation
+cwl-quantum |release| Documentation
 ====================================
 
 Cookiecutter
