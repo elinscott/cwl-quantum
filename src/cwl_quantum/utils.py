@@ -67,35 +67,51 @@ def populate_listings(obj: Any) -> None:
                 obj["listing"] = None
     return
 
+def _convert_cwl_dict_to_path(dct):
+    """Convert any CWL File/Directory objects in a nested dictionary to Path objects."""
+    if not isinstance(dct, dict):
+        return dct
 
-def convert_cwl_files_to_paths(dct: Any) -> None:
-    """Convert any CWL File/Directory objects to Path objects recursively."""
+    if dct.get("class", None) in ["File", "Directory"]:
+            return Path(dct["path"])
 
-    if isinstance(dct, dict):
-        for k, v in dct.items():
-            if isinstance(v, dict) and v.get("class", None) in ["File", "Directory"]:
-                dct[k] = Path(v["path"])
-            else:
-                convert_cwl_files_to_paths(v)
-    elif isinstance(dct, list):
-        for v in dct:
-            convert_cwl_files_to_paths(v)
-    return
+    for key, value in dct.items():
+        dct[key] = convert_cwls_to_paths(value)
 
+    return dct    
 
-def convert_paths_to_cwl_files(obj: Any) -> None:
+def convert_cwls_to_paths(item):
+    """Convert any CWL File/Directory objects in a nested dictionary/list to Path objects."""
+    if isinstance(item, dict):
+        return _convert_cwl_dict_to_path(item)
+    elif isinstance(item, list):
+        return [convert_cwls_to_paths(sub_item) for sub_item in item]
+    else:
+        return item
+
+def _convert_path_to_cwl_dict(path: Path) -> dict:
+    """Convert a Path object to a CWL File/Directory object."""
+    if path.is_dir():
+        cwl_dct = {"class": "Directory", "path": str(path)}
+    else:
+        cwl_dct = {"class": "File", "path": str(path)}
+    populate_listings(cwl_dct)
+    return cwl_dct
+
+def convert_paths_to_cwls(obj: Any):
     """Convert any Path objects to CWL File/Directory objects recursively."""
-
-    if isinstance(obj, dict):
+    if isinstance(obj, Path):
+        return _convert_path_to_cwl_dict(obj)
+    
+    elif isinstance(obj, dict):
         for k, v in obj.items():
-            if isinstance(v, Path):
-                cwl_dct = {"class": "File", "path": str(v)}
-                populate_listings(cwl_dct)
-                obj[k] = cwl_dct
-            else:
-                convert_paths_to_cwl_files(v)
-
+            obj[k] = convert_paths_to_cwls(v)
+        return obj
+    
     elif isinstance(obj, list):
-        for v in obj:
-            convert_paths_to_cwl_files(v)
-    return
+        for i, v in enumerate(obj):
+            obj[i] = convert_paths_to_cwls(v)
+        return obj
+    
+    else:
+        return obj

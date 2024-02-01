@@ -9,7 +9,7 @@ from cwl_quantum.utils import populate_listings
 
 def run():
     # Create the workflow object
-    wf = create_workflow("kcw.cwl", operations=ase_operations)
+    wf = create_workflow("../../workflows/kcw/kcw.cwl", operations=ase_operations)
 
     # Update the runtime context
     wf.factory.runtime_context.rm_tmpdir = False

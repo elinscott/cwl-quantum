@@ -18,7 +18,7 @@ from cwltool.utils import (
 from cwltool.workflow import default_make_tool
 from ruamel.yaml.comments import CommentedMap
 
-from .utils import chdir, convert_cwl_files_to_paths, convert_paths_to_cwl_files
+from .utils import chdir, convert_cwls_to_paths, convert_paths_to_cwls
 
 
 class PythonJob:
@@ -100,10 +100,10 @@ def construct_make_tool(operations):
                 # Replacing tool with the matching python function
                 def wrapped_func(**kwargs) -> CWLOutputType:
                     # Recursively replace CWL File/Directory objects with Path objects
-                    convert_cwl_files_to_paths(kwargs)
+                    inputs = convert_cwls_to_paths(kwargs)
 
                     # Run the function
-                    outputs = func(**kwargs)
+                    outputs = func(**inputs)
 
                     # Check that we received the expected outputs
                     if not isinstance(outputs, dict):
@@ -116,9 +116,9 @@ def construct_make_tool(operations):
                         )
 
                     # Recursively replace Path objects with CWL File/Directory objects
-                    convert_paths_to_cwl_files(outputs)
+                    tidied_outputs = convert_paths_to_cwls(outputs)
 
-                    return outputs
+                    return tidied_outputs
 
                 tool.tool["operation"] = wrapped_func
                 tool.tool["class"] = "CustomOperation"
