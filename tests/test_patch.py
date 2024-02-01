@@ -18,7 +18,7 @@ def test_pw_base():
     )
 
     # Load the workflow inputs from file
-    with open("workflows/pw/si.yml", "r") as f:
+    with open("examples/pw/si.yml", "r") as f:
         inputs = yaml.safe_load(f)
     populate_listings(inputs)
 
@@ -45,7 +45,7 @@ def test_pw_error_recovery():
     )
 
     # Load the workflow inputs from file
-    with open("workflows/pw/si.yml", "r") as f:
+    with open("examples/pw/si.yml", "r") as f:
         inputs = yaml.safe_load(f)
     populate_listings(inputs)
 

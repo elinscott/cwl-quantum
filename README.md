@@ -29,7 +29,7 @@
         <img src="https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg" alt="Contributor Covenant"/></a>
 </p>
 
-Test implementation of creating koopmans Workflows from cwl files
+Test implementation of writing workflows for quantum simulation in CWL
 
 ## 💪 Getting Started
 
