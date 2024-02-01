@@ -1,0 +1,28 @@
+atoms:
+  cell:
+    a: 10.0
+    b: 10.0
+    c: 10.0
+    alpha: 90.0
+    beta: 90.0
+    gamma: 90.0
+  positions:
+    - { symbol: O, position: [0.70869, 0.60000, 0.58900] }
+    - { symbol: O, position: [0.81738, 0.60000, 0.65000]}
+    - { symbol: O, position: [0.60000, 0.60000, 0.65000]}
+pw_parameters:
+  control:
+    calculation: scf
+    outdir: { class: Directory, path: "tmp" }
+    prefix: "pwscfx"
+  system:
+    ecutwfc: 20.0
+kcw_parameters:
+  control:
+    outdir: { class: Directory, path: "tmp" }
+    prefix: "test"
+  wannier: {}
+pseudopotentials:
+  directory: { class: Directory, path: "." }
+  filenames:
+    - { symbol: O, filename: "O_ONCV_PBE-1.2.upf" }

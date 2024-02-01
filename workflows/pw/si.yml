@@ -12,6 +12,8 @@ atoms:
 parameters:
   control:
     calculation: scf
+    prefix: "pwscf"
+    outdir: { class: Directory, path: "tmp" }
   system:
     ecutwfc: 40.0
 pseudopotentials:

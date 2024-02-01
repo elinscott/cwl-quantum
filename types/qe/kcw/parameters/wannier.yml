@@ -1,0 +1,8 @@
+# control.yml
+
+type: record
+
+doc: |
+  A custom type for representing the QE WANNIER namelist for kcw.x
+
+fields: {}

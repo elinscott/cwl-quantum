@@ -12,3 +12,9 @@ fields:
       symbols: ["scf", "nscf", "bands", "relax", "md", "vc-relax", "vc-md"]
     doc: |
       A string describing the task to be performed.
+
+  - name: outdir
+    type: Directory
+
+  - name: prefix
+    type: string

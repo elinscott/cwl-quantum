@@ -28,7 +28,7 @@ from cwltool.utils import (
 from cwltool.workflow import default_make_tool
 from ruamel.yaml.comments import CommentedMap
 
-from .utils import chdir
+from .utils import chdir, convert_cwl_files_to_paths, convert_paths_to_cwl_files
 
 
 class PythonJob:
@@ -109,19 +109,25 @@ def construct_make_tool(operations):
 
                 # Replacing tool with the matching python function
                 def wrapped_func(**kwargs) -> CWLOutputType:
-                    inputs = {}
-                    for k, v in kwargs.items():
-                        if isinstance(v, MutableMapping) and v.get("class") in [
-                            "File",
-                            "Directory",
-                        ]:
-                            inputs[k] = Path(v["location"])
-                        else:
-                            inputs[k] = v
-                    outputs = func(**inputs)
-                    if not isinstance(outputs, tuple):
-                        outputs = (outputs,)
-                    return {k: v for k, v in zip(expected_return_names, outputs)}
+                    # Recursively replace CWL File/Directory objects with Path objects
+                    convert_cwl_files_to_paths(kwargs)
+
+                    # Run the function
+                    outputs = func(**kwargs)
+
+                    # Check that we received the expected outputs
+                    if not isinstance(outputs, dict):
+                        raise ValueError(
+                            f"Operation {name} should return a dictionary. Please modify your implementation of this operation.")
+                    if set(expected_return_names) != set(outputs.keys()):
+                        raise ValueError(
+                            f"Operation {name} is expected to return ({', '.join(expected_return_names)}) but instead it returned ({', '.join(outputs.keys())})"
+                        )
+
+                    # Recursively replace Path objects with CWL File/Directory objects
+                    convert_paths_to_cwl_files(outputs)
+
+                    return outputs
 
                 tool.tool["operation"] = wrapped_func
                 tool.tool["class"] = "CustomOperation"

@@ -23,15 +23,15 @@ def test_pw_base():
     populate_listings(inputs)
 
     # Run the workflow
-    err = wf(**inputs)
-    assert err == 0
+    outputs = wf(**inputs)
+    assert outputs["error_code"] == 0
 
 def test_pw_error_recovery():
     # Make a dumb wrapper of ase_operations['pw_base'] that will return an error if ecutwfc is too low
     def pw_base(**kwargs):
         ecutwfc = kwargs['parameters']['system']['ecutwfc']
         if ecutwfc < 55.0:
-            return 1
+            return {"error_code": 1, "xml": None, "wavefunctions": None, "charge_density": None}
         else:
             return ase_operations['pw_base'](**kwargs)
 
@@ -54,4 +54,4 @@ def test_pw_error_recovery():
 
     # Check the outputs
     assert outputs['error_code'] == 0
-    assert outputs['parameters']['system']['ecutwfc'] > 55.0
+    assert outputs['updated_parameters']['system']['ecutwfc'] > 55.0

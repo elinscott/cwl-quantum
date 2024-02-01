@@ -32,6 +32,17 @@ outputs:
    updated_parameters:
       type: { $import: "../../types/qe/pw/parameters.yml" }
       outputSource: pw_attempts/updated_parameters
+   xml:
+      type: File
+      outputSource: pw_attempts/xml
+   wavefunctions:
+      type:
+         type: array
+         items: File
+      outputSource: pw_attempts/wavefunctions
+   charge_density:
+      type: File
+      outputSource: pw_attempts/charge_density
 
 steps:
    pw_attempts:
@@ -40,9 +51,9 @@ steps:
          cwltool:Loop:
             loopWhen: $(inputs.first_attempt || inputs.prior_error_code != 0)
             loop:
+               parameters: updated_parameters
                first_attempt: first_attempt
                prior_error_code: error_code
-               parameters: updated_parameters
             outputMethod: last
 
       in: 
@@ -52,7 +63,7 @@ steps:
          first_attempt: first_attempt
          prior_error_code: prior_error_code
 
-      out: [error_code, updated_parameters, first_attempt]
+      out: [error_code, updated_parameters, first_attempt, xml, wavefunctions, charge_density]
 
       run:
          class: Workflow
@@ -75,10 +86,22 @@ steps:
             first_attempt:
                type: boolean
                outputSource: update_parameters_as_required/first_attempt
+            xml:
+               type: File
+               outputSource: pw_attempt/xml
+            wavefunctions:
+               type:
+                  type: array
+                  items: File
+               outputSource: pw_attempt/wavefunctions
+            charge_density:
+               type: File
+               outputSource: pw_attempt/charge_density
          steps:
             update_parameters_as_required:
                # Update the QE parameters, based on the prior error code. Note that for the first attempt,
                # the prior error code is 0, so the parameters are not altered.
+               # This should probably be reimplemented using update_record.cwl
                run:
                   class: ExpressionTool
                   inputs:
@@ -117,4 +140,4 @@ steps:
                   atoms: atoms
                   parameters: update_parameters_as_required/parameters_out
                   pseudopotentials: pseudopotentials
-               out: [error_code]
+               out: [error_code, xml, wavefunctions, charge_density]

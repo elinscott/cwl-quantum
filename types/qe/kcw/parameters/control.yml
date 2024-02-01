@@ -8,39 +8,42 @@ doc: |
 fields:
   - name: prefix
     type: string
+    doc: "tmp"
 
   - name: outdir
-    type: string
+    type: Directory
+    doc: "tmp"
 
-  - name: kcw_iverbosity
-    type: int
-
-  - name: kcw_at_ks
-    type: boolean
-
-  - name: lrpa
-    type: boolean
-
-  - name: mp1
-    type: int
-
-  - name: mp2
-    type: int
-
-  - name: mp3
-    type: int
-
-  - name: homo_only
-    type: boolean
-
-  - name: read_unitary_matrix
-    type: boolean
-
-  - name: l_vcut
-    type: boolean
-
-  - name: assume_isolated
-    type: string
-
-  - name: spin_component
-    type: int
+#   - name: kcw_iverbosity
+#     type: int
+# 
+#   - name: kcw_at_ks
+#     type: boolean
+# 
+#   - name: lrpa
+#     type: boolean
+# 
+#   - name: mp1
+#     type: int
+# 
+#   - name: mp2
+#     type: int
+# 
+#   - name: mp3
+#     type: int
+# 
+#   - name: homo_only
+#     type: boolean
+# 
+#   - name: read_unitary_matrix
+#     type: boolean
+# 
+#   - name: l_vcut
+#     type: boolean
+# 
+#   - name: assume_isolated
+#     type: string
+# 
+#   - name: spin_component
+#     type: int
+# 

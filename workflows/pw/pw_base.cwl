@@ -12,3 +12,11 @@ inputs:
 outputs:
    error_code:
       type: int
+   xml:
+      type: File
+   wavefunctions:
+      type:
+         type: array
+         items: File
+   charge_density:
+      type: File

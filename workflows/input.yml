@@ -1,0 +1,5 @@
+original_record:
+  test_record:
+    mykey: "myvalue"
+key: "mykey"
+value: "newvalue"

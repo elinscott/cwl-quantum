@@ -1,0 +1,12 @@
+# parameters.yml
+
+type: record
+
+doc: |
+  A custom type for representing kcw.x input parameters
+
+fields:
+  - name: control
+    type: { $import: "parameters/control.yml" }
+  - name: wannier
+    type: { $import: "parameters/wannier.yml" }

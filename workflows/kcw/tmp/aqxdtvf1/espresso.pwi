@@ -1,0 +1,33 @@
+&CONTROL
+   calculation      = 'scf'
+   outdir           = '/home/linsco_e/code/koopmans_cwl/workflows/kcw/tmp'
+   pseudo_dir       = '/home/linsco_e/code/koopmans_cwl/workflows/kcw'
+/
+&SYSTEM
+   ecutwfc          = 20
+   ntyp             = 1
+   nat              = 3
+   ibrav            = 0
+/
+&ELECTRONS
+/
+&IONS
+/
+&CELL
+/
+
+ATOMIC_SPECIES
+O 15.999 O_ONCV_PBE-1.2.upf
+
+K_POINTS gamma
+
+CELL_PARAMETERS angstrom
+10.00000000000000 0.00000000000000 0.00000000000000
+0.00000000000000 10.00000000000000 0.00000000000000
+0.00000000000000 0.00000000000000 10.00000000000000
+
+ATOMIC_POSITIONS angstrom
+O 7.0869000000 6.0000000000 5.8900000000 
+O 8.1738000000 6.0000000000 6.5000000000 
+O 6.0000000000 6.0000000000 6.5000000000 
+
