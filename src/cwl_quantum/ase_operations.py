@@ -11,6 +11,7 @@ def pw_base(
     atoms: Dict[str, Dict[str, Any]], parameters: Dict[str, Dict[str, Any]], pseudopotentials: Dict[str, Any]
 ) -> int:
     # Construct an ASE Atoms object
+    assert isinstance(atoms["positions"], list)
     symbols = [at["symbol"] for at in atoms["positions"]]
     cell = Cell.fromcellpar([atoms["cell"][k] for k in ["a", "b", "c", "alpha", "beta", "gamma"]])
     ase_atoms = Atoms(symbols, cell=cell)

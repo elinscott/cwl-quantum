@@ -77,7 +77,8 @@ def convert_cwl_files_to_paths(dct: Any) -> None:
             else:
                 convert_cwl_files_to_paths(v)
     elif isinstance(dct, list):
-        [convert_cwl_files_to_paths(v) for v in dct]
+        for v in dct:
+            convert_cwl_files_to_paths(v)
     return
 
 def convert_paths_to_cwl_files(obj: Any) -> None:
@@ -93,5 +94,6 @@ def convert_paths_to_cwl_files(obj: Any) -> None:
                 convert_paths_to_cwl_files(v)
 
     elif isinstance(obj, list):
-        [convert_paths_to_cwl_files(v) for v in obj]
+        for v in obj:
+            convert_paths_to_cwl_files(v)
     return
