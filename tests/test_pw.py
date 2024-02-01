@@ -18,8 +18,9 @@ def test_pw_base():
     )
 
     # Load the workflow inputs from file
-    with open("examples/pw/si.yml", "r") as f:
+    with open("examples/silicon_with_pw/si.yml", "r") as f:
         inputs = yaml.safe_load(f)
+    inputs['pseudopotentials']['directory'] = {"class": "Directory", "path": "examples/pseudos"}
     populate_listings(inputs)
 
     # Run the workflow
@@ -45,8 +46,9 @@ def test_pw_error_recovery():
     )
 
     # Load the workflow inputs from file
-    with open("examples/pw/si.yml", "r") as f:
+    with open("examples/silicon_with_pw/si.yml", "r") as f:
         inputs = yaml.safe_load(f)
+    inputs['pseudopotentials']['directory'] = {"class": "Directory", "path": "examples/pseudos"}
     populate_listings(inputs)
 
     # Run the workflow

@@ -17,6 +17,6 @@ parameters:
   system:
     ecutwfc: 40.0
 pseudopotentials:
-  directory: { class: Directory, path: "../../tests/pseudos" }
+  directory: { class: Directory, path: "../pseudos" }
   filenames:
     - { symbol: Si, filename: "Si.upf" }
