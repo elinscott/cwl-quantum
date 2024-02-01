@@ -67,13 +67,14 @@ def populate_listings(obj: Any) -> None:
                 obj["listing"] = None
     return
 
+
 def convert_cwl_files_to_paths(dct: Any) -> None:
     """Convert any CWL File/Directory objects to Path objects recursively."""
 
     if isinstance(dct, dict):
         for k, v in dct.items():
-            if isinstance(v, dict) and v.get("class", None) in ['File', 'Directory']:
-                dct[k] = Path(v['path'])
+            if isinstance(v, dict) and v.get("class", None) in ["File", "Directory"]:
+                dct[k] = Path(v["path"])
             else:
                 convert_cwl_files_to_paths(v)
     elif isinstance(dct, list):
@@ -81,13 +82,14 @@ def convert_cwl_files_to_paths(dct: Any) -> None:
             convert_cwl_files_to_paths(v)
     return
 
+
 def convert_paths_to_cwl_files(obj: Any) -> None:
     """Convert any Path objects to CWL File/Directory objects recursively."""
 
     if isinstance(obj, dict):
         for k, v in obj.items():
             if isinstance(v, Path):
-                cwl_dct = {'class': 'File', 'path': str(v)}
+                cwl_dct = {"class": "File", "path": str(v)}
                 populate_listings(cwl_dct)
                 obj[k] = cwl_dct
             else:

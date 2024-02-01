@@ -1,16 +1,6 @@
 import threading
 from pathlib import Path
-from typing import (
-    Any,
-    Callable,
-    Dict,
-    List,
-    MutableMapping,
-    MutableSequence,
-    Optional,
-    Union,
-    cast,
-)
+from typing import Any, Callable, Dict, List, MutableMapping, MutableSequence, Optional, Union, cast
 
 from cwltool.builder import Builder
 from cwltool.context import LoadingContext, RuntimeContext
@@ -118,7 +108,8 @@ def construct_make_tool(operations):
                     # Check that we received the expected outputs
                     if not isinstance(outputs, dict):
                         raise ValueError(
-                            f"Operation {name} should return a dictionary. Please modify your implementation of this operation.")
+                            f"Operation {name} should return a dictionary. Please modify your implementation of this operation."
+                        )
                     if set(expected_return_names) != set(outputs.keys()):
                         raise ValueError(
                             f"Operation {name} is expected to return ({', '.join(expected_return_names)}) but instead it returned ({', '.join(outputs.keys())})"

@@ -13,9 +13,9 @@ def run():
 
     # Update the runtime context
     wf.factory.runtime_context.rm_tmpdir = False
-    tmpdir_prefix = Path('tmp')
+    tmpdir_prefix = Path("tmp")
     tmpdir_prefix.mkdir(exist_ok=True)
-    wf.factory.runtime_context.tmpdir_prefix = str(tmpdir_prefix) + '/'
+    wf.factory.runtime_context.tmpdir_prefix = str(tmpdir_prefix) + "/"
 
     # Load the workflow inputs from file
     with open("si.yml", "r") as f:
@@ -26,5 +26,6 @@ def run():
     outputs = wf(**inputs)
     print(outputs)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     run()
